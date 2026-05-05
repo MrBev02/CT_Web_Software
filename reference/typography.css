@@ -1,0 +1,123 @@
+/* ============================================================
+   Typography snippet patterns
+   Reference for choosing fonts, sizes, and spacing.
+   Copy what you need into your own stylesheet.
+   Don't paste the whole file — pick the bits that fit your page.
+   ============================================================ */
+
+
+/* === Font stacks ============================================
+   Browsers don't all have the same fonts installed.
+   A "stack" lists fallbacks. The browser uses the first font
+   it can find on the user's computer.
+
+   `system-ui` uses whatever the operating system uses
+   (San Francisco on Mac, Segoe UI on Windows, Roboto on Android).
+   It loads instantly and looks native to each device. */
+
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+/* For a more traditional "book" feel, use a serif: */
+/*
+body {
+  font-family: Georgia, "Times New Roman", serif;
+}
+*/
+
+/* For a clean, modern feel: */
+/*
+body {
+  font-family: "Helvetica Neue", Arial, sans-serif;
+}
+*/
+
+
+/* === Type scale =============================================
+   Don't pick heading sizes randomly. Use a scale so headings
+   feel related to each other.
+
+   This scale multiplies by 1.25 each step.
+   1rem = 16px (the browser default). */
+
+h1 { font-size: 2rem;    }   /* ~32px */
+h2 { font-size: 1.5rem;  }   /* ~24px */
+h3 { font-size: 1.25rem; }   /* ~20px */
+p, li { font-size: 1rem; }   /* 16px = body text */
+
+
+/* === Line height ============================================
+   Line height controls the space between lines of text.
+
+   Body text needs breathing room: 1.4 to 1.7.
+   Headings can be tighter: 1.1 to 1.3. */
+
+body {
+  line-height: 1.6;
+}
+
+h1, h2, h3 {
+  line-height: 1.2;
+}
+
+
+/* === Line length ============================================
+   Lines longer than ~75 characters are hard to read.
+   Your eyes get lost finding the next line.
+
+   `max-width` on the body keeps lines a comfortable length.
+   `ch` is a unit equal to the width of the "0" character. */
+
+body {
+  max-width: 65ch;
+  margin: 2rem auto;   /* `auto` on the sides centres the page */
+}
+
+
+/* === Font weight ============================================
+   Default weight is 400 (normal). Bold is 700.
+   Use weight, not just size, to create hierarchy. */
+
+h1 {
+  font-weight: 700;
+}
+
+.subtle {
+  font-weight: 300;
+  color: #555;
+}
+
+
+/* === Spacing between text blocks ============================
+   By default, browsers add some margin between paragraphs and
+   headings. You can adjust it for a tighter or looser feel. */
+
+p {
+  margin-bottom: 1rem;
+}
+
+h2 {
+  margin-top: 2rem;     /* extra space above each section */
+  margin-bottom: 0.5rem;
+}
+
+
+/* === Quick visual hierarchy =================================
+   Combining the patterns above gives you a readable page
+   with almost no other styling needed. */
+
+/*
+body {
+  font-family: system-ui, sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  max-width: 65ch;
+  margin: 2rem auto;
+  padding: 1rem;
+}
+
+h1 { font-size: 2rem;   line-height: 1.2; }
+h2 { font-size: 1.5rem; line-height: 1.2; margin-top: 2rem; }
+p  { margin-bottom: 1rem; }
+*/

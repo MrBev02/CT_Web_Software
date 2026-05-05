@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StyleSpace - Your Creative Hub</title>
+    <!-- <link rel="stylesheet" href="styles.css"> -->
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <div class="logo">✨ StyleSpace</div>
+                <div class="theme-selector">
+                    <label for="theme-select">Choose Theme:</label>
+                    <select id="theme-select" class="theme-dropdown">
+                        <option value="">Gothic Purple</option>
+                        <option value="theme-purple">Lavender Vibes</option>
+                        <option value="theme-mint">Mint Fresh</option>
+                    </select>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <section class="hero">
+                <h1>Welcome to Your Creative Universe</h1>
+                <p>Express yourself, discover trends, and connect with your vibe ✨</p>
+            </section>
+
+            <section class="cards-grid">
+                <div class="card">
+                    <div class="card-icon">🎨</div>
+                    <h3>Art & Creativity</h3>
+                    <p>Explore digital art tutorials, DIY crafts, and creative challenges. Share your masterpieces and get inspired by others!</p>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">👗</div>
+                    <h3>Fashion & Style</h3>
+                    <p>Discover the latest trends, create outfit mood boards, and find your unique style. From thrift finds to designer dreams!</p>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">🎵</div>
+                    <h3>Music & Vibes</h3>
+                    <p>Create playlists, discover new artists, and share your musical journey. From indie gems to chart-toppers!</p>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">📱</div>
+                    <h3>Tech & Digital Life</h3>
+                    <p>Stay updated with the latest apps, learn photo editing tricks, and master social media aesthetics!</p>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">🌸</div>
+                    <h3>Self Care & Wellness</h3>
+                    <p>Mental health tips, skincare routines, and mindfulness practices. Taking care of yourself is always trendy!</p>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">📚</div>
+                    <h3>Books & Stories</h3>
+                    <p>Book recommendations, writing prompts, and literary discussions. From fantasy worlds to romance novels!</p>
+                </div>
+            </section>
+
+            <section class="interactive-section">
+                <h2 style="text-align: center; color: var(--primary-color); margin-bottom: 1rem;">Today's Mood Board</h2>
+                <p style="text-align: center; margin-bottom: 1rem; opacity: 0.8;">Click on the emojis to express your current vibe!</p>
+                <div class="mood-board">
+                    <div class="mood-item" onclick="selectMood(this, '✨')">✨</div>
+                    <div class="mood-item" onclick="selectMood(this, '🌙')">🌙</div>
+                    <div class="mood-item" onclick="selectMood(this, '🦋')">🦋</div>
+                    <div class="mood-item" onclick="selectMood(this, '🌺')">🌺</div>
+                    <div class="mood-item" onclick="selectMood(this, '💫')">💫</div>
+                    <div class="mood-item" onclick="selectMood(this, '🎀')">🎀</div>
+                </div>
+                <p id="mood-text" style="text-align: center; margin-top: 1rem; font-style: italic; color: var(--primary-color);"></p>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 StyleSpace - Where creativity meets community ✨</p>
+        </div>
+    </footer>
+
+    <script>
+        // Theme switching functionality
+        const themeSelect = document.getElementById('theme-select');
+        const body = document.body;
+
+        themeSelect.addEventListener('change', function() {
+            // Remove existing theme classes
+            body.classList.remove('theme-purple', 'theme-mint');
+            
+            // Add new theme class if selected
+            if (this.value) {
+                body.classList.add(this.value);
+            }
+        });
+
+        // Mood board functionality
+        function selectMood(element, emoji) {
+            const moodText = document.getElementById('mood-text');
+            const moods = {
+                '✨': "Feeling magical and inspired!",
+                '🌙': "In a dreamy, peaceful mood",
+                '🦋': "Ready for transformation and growth",
+                '🌺': "Embracing natural beauty and positivity",
+                '💫': "Shooting for the stars today!",
+                '🎀': "Feeling cute and confident!"
+            };
+            
+            // Reset all mood items
+            document.querySelectorAll('.mood-item').forEach(item => {
+                item.style.transform = 'scale(1)';
+                item.style.opacity = '1';
+            });
+            
+            // Highlight selected mood
+            element.style.transform = 'scale(1.2)';
+            element.style.opacity = '0.8';
+            
+            // Update mood text
+            moodText.textContent = moods[emoji];
+            
+            // Add a little celebration animation
+            element.style.animation = 'none';
+            setTimeout(() => {
+                element.style.animation = 'fadeInUp 0.6s ease';
+            }, 10);
+        }
+
+        // Add some interactive hover effects
+        document.querySelectorAll('.card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+    </script>
+</body>
+</html>

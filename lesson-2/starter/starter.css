@@ -1,0 +1,49 @@
+/* ============================================================
+   Starter stylesheet
+   Your teacher pre-wrote this rule to show you the pattern.
+   Add more rules below.
+   ============================================================ */
+
+
+/* This rule changes the body element.
+   The "body" is the whole page — everything between <body> and </body>. */
+body {
+  font-family: system-ui, sans-serif;
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 1rem;
+}
+
+
+/* ============================================================
+   Now you try — write a rule for each of these:
+   ============================================================ */
+
+
+/* 1. Change the colour of every h1 heading.
+      The selector is `h1`. The property is `color`.
+      Pick any colour you like. Try a hex value like #1a4d8c. */
+
+/* WRITE YOUR RULE HERE */
+
+
+/* 2. Make every paragraph easier to read by setting line-height.
+      The selector is `p`. The property is `line-height`.
+      Try a value of 1.6. */
+
+/* WRITE YOUR RULE HERE */
+
+
+/* 3. Add space between list items.
+      The selector is `li`. The property is `margin-bottom`.
+      Try a value of 0.5rem. */
+
+/* WRITE YOUR RULE HERE */
+
+
+/* ============================================================
+   Done with the three above? Try one of these:
+   - Change the background colour of the whole page (body, background)
+   - Make h2 a different colour from h1
+   - Add padding to a paragraph so it has some breathing room
+   ============================================================ */
