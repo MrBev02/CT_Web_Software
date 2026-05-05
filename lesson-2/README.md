@@ -86,6 +86,8 @@ Every element on a web page is a rectangle with four parts. Understanding these 
 
 **Memory hook:** **m**argin pushes neighbours away. **p**adding pushes content in.
 
+For an interactive version where you can change the values and see the box react, open [`box_model.html`](box_model.html).
+
 ## Colour and font properties
 
 ```css
@@ -97,7 +99,7 @@ font-size: 1.2rem;                    /* how big */
 
 > ⚠ **Spelling trap:** CSS uses American spelling. The property is `color`, not `colour`. If you write `colour`, the rule will silently do nothing.
 
-For palette ideas and accessibility-checked colour combinations, see the [Colours reference](../03-snippet-patterns/colours.md).
+For palette ideas and accessibility-checked colour combinations, see the [Colours reference](../reference/colours.md).
 
 ---
 
