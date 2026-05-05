@@ -253,7 +253,7 @@ If you've checked all six and it's still not working, ask a neighbour to read yo
 
 ## Where to go next
 
-- **[CSS Glossary](../03-snippet-patterns/glossary.md)** — definitions of every CSS word your teacher used today.
-- **[Colours reference](../03-snippet-patterns/colours.md)** — palettes, contrast checking, and how to apply colour without making a page hard to read.
-- **[Typography patterns](../03-snippet-patterns/typography.css)** — copy-paste-ready rules for fonts, sizes, line heights.
-- **[Starter file](starter.css)** — a stylesheet with one rule pre-written, plus three "now you try" prompts. Good if you're not sure where to begin.
+- **[CSS Glossary](../reference/glossary.md)** — definitions of every CSS word your teacher used today.
+- **[Colours reference](../reference/colours.md)** — palettes, contrast checking, and how to apply colour without making a page hard to read.
+- **[Typography patterns](../reference/typography.css)** — copy-paste-ready rules for fonts, sizes, line heights.
+- **[Starter file](starter/starter.css)** — a stylesheet with one rule pre-written, plus three "now you try" prompts. Good if you're not sure where to begin.

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Interactive CSS Box Model Demo</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      max-width: 800px;
+    }
+    h1 {
+      margin-bottom: 10px;
+    }
+    .controls {
+      margin-bottom: 20px;
+      padding: 15px;
+      background: #f4f4f4;
+      border-radius: 8px;
+    }
+    .controls label {
+      display: block;
+      margin: 10px 0 5px;
+      font-weight: bold;
+    }
+    .demo-box {
+      width: 200px;
+      background: #f9c74f;
+      padding: 20px;
+      border: 10px solid #f9844a;
+      margin: 30px;
+      transition: all 0.3s ease;
+    }
+    .content {
+      background: #90be6d;
+      padding: 10px;
+      text-align: center;
+    }
+    .info {
+      margin-top: 20px;
+      font-size: 0.95em;
+      background: #eef;
+      padding: 10px;
+      border-radius: 6px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Interactive CSS Box Model Demo</h1>
+  <p>Use the sliders below to adjust <strong>padding</strong>, <strong>border</strong>, and <strong>margin</strong> of the yellow box.</p>
+
+  <div class="controls">
+    <label for="padding">Padding: <span id="padding-value">20</span>px</label>
+    <input type="range" id="padding" min="0" max="50" value="20">
+
+    <label for="border">Border: <span id="border-value">10</span>px</label>
+    <input type="range" id="border" min="0" max="30" value="10">
+
+    <label for="margin">Margin: <span id="margin-value">30</span>px</label>
+    <input type="range" id="margin" min="0" max="60" value="30">
+  </div>
+
+  <div class="demo-box" id="box">
+    <div class="content">Content</div>
+  </div>
+
+  <div class="info" id="info">
+    <strong>Current Box Model:</strong><br>
+    Content width = 200px<br>
+    Padding = 20px<br>
+    Border = 10px<br>
+    Margin = 30px
+  </div>
+
+  <script>
+    const box = document.getElementById("box");
+    const paddingInput = document.getElementById("padding");
+    const borderInput = document.getElementById("border");
+    const marginInput = document.getElementById("margin");
+
+    const paddingVal = document.getElementById("padding-value");
+    const borderVal = document.getElementById("border-value");
+    const marginVal = document.getElementById("margin-value");
+    const info = document.getElementById("info");
+
+    function updateBoxModel() {
+      const padding = paddingInput.value;
+      const border = borderInput.value;
+      const margin = marginInput.value;
+
+      // apply styles
+      box.style.padding = padding + "px";
+      box.style.borderWidth = border + "px";
+      box.style.margin = margin + "px";
+
+      // update labels
+      paddingVal.textContent = padding;
+      borderVal.textContent = border;
+      marginVal.textContent = margin;
+
+      // update info panel
+      info.innerHTML = `
+        <strong>Current Box Model:</strong><br>
+        Content width = 200px<br>
+        Padding = ${padding}px<br>
+        Border = ${border}px<br>
+        Margin = ${margin}px
+      `;
+    }
+
+    // add event listeners
+    paddingInput.addEventListener("input", updateBoxModel);
+    borderInput.addEventListener("input", updateBoxModel);
+    marginInput.addEventListener("input", updateBoxModel);
+  </script>
+</body>
+</html>
