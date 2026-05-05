@@ -22,6 +22,10 @@ HTML describes **what is on the page** (headings, paragraphs, lists, images). CS
 
 Keeping these in two separate files is called **separating content from presentation**. It means you can change the look of a whole site by editing one CSS file, without touching any of the HTML.
 
+## Quick Demo
+- [before.html](demo/plain_website.html) — pure HTML, no styling.
+- [after.html](demo/styled_website.html) — same page, with CSS added.
+
 ## Linking a stylesheet
 
 HTML and CSS live in two separate files. The browser loads both. To connect them, add a `<link>` tag inside the `<head>` of your HTML:
