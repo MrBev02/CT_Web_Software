@@ -1,0 +1,113 @@
+/* ============================================================
+   Lesson 1 closing demo — what one CSS file can do.
+   The HTML in with-css.html is identical to no-css.html.
+   The only difference is the <link rel="stylesheet"> in the head.
+   ============================================================ */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: -apple-system, "Segoe UI", system-ui, sans-serif;
+    background: #faf6f0;
+    color: #2a2018;
+    line-height: 1.6;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+}
+
+header {
+    text-align: center;
+    padding: 3rem 0 2.5rem;
+    border-bottom: 3px solid #c2410c;
+    margin-bottom: 2.5rem;
+}
+
+header h1 {
+    font-size: 3rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: #7c2d12;
+    margin-bottom: 0.5rem;
+}
+
+header > p {
+    font-size: 1.15rem;
+    color: #78716c;
+    font-style: italic;
+}
+
+main section {
+    background: #ffffff;
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(60, 30, 10, 0.08);
+}
+
+h2 {
+    font-size: 1.6rem;
+    color: #c2410c;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #fed7aa;
+}
+
+p {
+    margin-bottom: 1rem;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+ul li {
+    padding: 0.6rem 0 0.6rem 1.8rem;
+    position: relative;
+    border-bottom: 1px solid #f5e6d3;
+}
+
+ul li:last-child {
+    border-bottom: none;
+}
+
+ul li::before {
+    content: "🥖";
+    position: absolute;
+    left: 0;
+    top: 0.6rem;
+}
+
+a {
+    color: #c2410c;
+    text-decoration: none;
+    border-bottom: 2px solid #fed7aa;
+    transition: border-color 0.2s;
+    font-weight: 600;
+}
+
+a:hover {
+    border-bottom-color: #c2410c;
+}
+
+img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-top: 1rem;
+    display: block;
+}
+
+footer {
+    text-align: center;
+    padding: 2rem 0 1rem;
+    margin-top: 2rem;
+    color: #a8a29e;
+    font-size: 0.9rem;
+    border-top: 1px solid #e7d4c0;
+}
