@@ -14,6 +14,7 @@ Lookup material you can come back to throughout the unit — HTML, CSS, and (lat
 |------|----------------|
 | [`typography.css`](typography.css) | Choosing fonts, sizes, line heights, line lengths. The base styling for any text-heavy page. |
 | [`colours.md`](colours.md) | Picking a colour palette, checking contrast, applying colour to text and backgrounds. Includes three starter palettes. |
+| [`flexbox.md`](flexbox.md) | Laying out elements in a row or column — nav bars, card rows, form layouts. Quick reference for the container and item properties. |
 | [`glossary.md`](glossary.md) | You hit a CSS word in class or in a snippet you don't understand. Quick definitions with examples. |
 
 *JavaScript references will be added later in the unit.*

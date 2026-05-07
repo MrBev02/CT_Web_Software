@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Flexbox Playground — Lesson 3</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    margin: 0;
+    padding: 24px;
+    max-width: 1100px;
+    margin-inline: auto;
+    color: #222;
+    background: #fafafa;
+  }
+
+  h1 { margin: 0 0 4px 0; font-size: 26px; }
+  .lede { margin: 0 0 24px 0; color: #555; }
+
+  /* The control row is itself a flexbox (meta!) */
+  .controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    padding: 16px;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 16px;
+  }
+  .control { display: flex; flex-direction: column; gap: 4px; min-width: 150px; }
+  .control label { font-size: 12px; font-weight: 700; color: #444; text-transform: uppercase; letter-spacing: 0.5px; }
+  .control select {
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    background: white;
+    cursor: pointer;
+  }
+  .control select:focus { outline: 2px solid #2a6df4; outline-offset: 1px; }
+
+  /* The demo area */
+  .demo {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .canvas { flex: 1 1 380px; }
+  .panel  { flex: 1 1 280px; }
+
+  /* The flex container being demonstrated */
+  .container {
+    display: flex;            /* this stays — that's the whole point */
+    height: 400px;
+    width: 100%;
+    background: #f0f0f0;
+    border: 2px dashed #888;
+    border-radius: 6px;
+    padding: 10px;
+    /* the four properties below are set by JS */
+  }
+  .item {
+    background: #2a2a2a;
+    color: white;
+    padding: 14px 22px;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .item:nth-child(1) { background: #2a6df4; }
+  .item:nth-child(2) { background: #f4a72a; }
+  .item:nth-child(3) { background: #2aa84a; }
+  .item:nth-child(4) { background: #d8385e; }
+  .item:nth-child(5) { background: #6f2ed8; }
+
+  .axis-info {
+    font-size: 13px;
+    color: #555;
+    margin-top: 10px;
+    font-family: ui-monospace, Menlo, Consolas, monospace;
+  }
+
+  /* CSS readout panel */
+  .css-panel {
+    background: #1c1c20;
+    color: #e8e8e8;
+    padding: 18px;
+    border-radius: 6px;
+    font-family: ui-monospace, Menlo, Consolas, monospace;
+    font-size: 14px;
+    line-height: 1.6;
+    white-space: pre;
+    overflow-x: auto;
+  }
+  .css-panel .selector { color: #f4a72a; }
+  .css-panel .prop     { color: #6db4e8; }
+  .css-panel .val      { color: #ffd96b; }
+  .css-panel .punct    { color: #888; }
+
+  /* footer note */
+  .note {
+    margin-top: 22px;
+    padding: 14px 16px;
+    background: #fff8e1;
+    border-left: 4px solid #f4a72a;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #5a4500;
+  }
+  .note strong { color: #2a2a2a; }
+</style>
+</head>
+<body>
+
+  <h1>Flexbox Playground</h1>
+  <p class="lede">Change the dropdowns. Watch the boxes rearrange. The CSS panel shows you exactly what's being applied to the container.</p>
+
+  <div class="controls">
+    <div class="control">
+      <label for="dir">flex-direction</label>
+      <select id="dir">
+        <option value="row">row</option>
+        <option value="row-reverse">row-reverse</option>
+        <option value="column">column</option>
+        <option value="column-reverse">column-reverse</option>
+      </select>
+    </div>
+    <div class="control">
+      <label for="just">justify-content</label>
+      <select id="just">
+        <option value="flex-start">flex-start</option>
+        <option value="flex-end">flex-end</option>
+        <option value="center">center</option>
+        <option value="space-between">space-between</option>
+        <option value="space-around">space-around</option>
+        <option value="space-evenly">space-evenly</option>
+      </select>
+    </div>
+    <div class="control">
+      <label for="align">align-items</label>
+      <select id="align">
+        <option value="stretch">stretch</option>
+        <option value="flex-start">flex-start</option>
+        <option value="flex-end">flex-end</option>
+        <option value="center">center</option>
+      </select>
+    </div>
+    <div class="control">
+      <label for="gap">gap</label>
+      <select id="gap">
+        <option value="0px">0px</option>
+        <option value="8px">8px</option>
+        <option value="16px" selected>16px</option>
+        <option value="32px">32px</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="demo">
+    <div class="canvas">
+      <div class="container" id="container">
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+        <div class="item">4</div>
+        <div class="item">5</div>
+      </div>
+      <p class="axis-info" id="axis-info">main axis: ↔ horizontal &nbsp;|&nbsp; cross axis: ↕ vertical</p>
+    </div>
+
+    <div class="panel">
+      <div class="css-panel" id="css-panel"></div>
+    </div>
+  </div>
+
+  <div class="note">
+    <strong>What to try:</strong> Set <code>flex-direction</code> to <code>row</code>, then change <code>justify-content</code> through every option. Watch how items move along the <em>main</em> axis. Then switch <code>flex-direction</code> to <code>column</code> and try the same options — notice how "horizontal" and "vertical" swap. That swap is the single most important thing flexbox does.
+  </div>
+
+  <script>
+    const container = document.getElementById('container');
+    const panel     = document.getElementById('css-panel');
+    const axisInfo  = document.getElementById('axis-info');
+
+    const dir   = document.getElementById('dir');
+    const just  = document.getElementById('just');
+    const align = document.getElementById('align');
+    const gap   = document.getElementById('gap');
+
+    function render() {
+      // Apply to the live container
+      container.style.flexDirection  = dir.value;
+      container.style.justifyContent = just.value;
+      container.style.alignItems     = align.value;
+      container.style.gap            = gap.value;
+
+      // Update CSS readout
+      panel.innerHTML =
+        '<span class="selector">.container</span> <span class="punct">{</span>\n' +
+        '  <span class="prop">display</span><span class="punct">:</span> <span class="val">flex</span><span class="punct">;</span>\n' +
+        '  <span class="prop">flex-direction</span><span class="punct">:</span> <span class="val">' + dir.value + '</span><span class="punct">;</span>\n' +
+        '  <span class="prop">justify-content</span><span class="punct">:</span> <span class="val">' + just.value + '</span><span class="punct">;</span>\n' +
+        '  <span class="prop">align-items</span><span class="punct">:</span> <span class="val">' + align.value + '</span><span class="punct">;</span>\n' +
+        '  <span class="prop">gap</span><span class="punct">:</span> <span class="val">' + gap.value + '</span><span class="punct">;</span>\n' +
+        '<span class="punct">}</span>';
+
+      // Axis hint
+      const isRow = dir.value.startsWith('row');
+      axisInfo.innerHTML = isRow
+        ? 'main axis: ↔ horizontal &nbsp;|&nbsp; cross axis: ↕ vertical'
+        : 'main axis: ↕ vertical &nbsp;|&nbsp; cross axis: ↔ horizontal';
+    }
+
+    [dir, just, align, gap].forEach(el => el.addEventListener('change', render));
+    render(); // initial paint
+  </script>
+
+</body>
+</html>

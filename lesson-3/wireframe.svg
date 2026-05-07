@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1100" font-family="ui-monospace, Menlo, Consolas, monospace">
+
+  <!-- background -->
+  <rect width="800" height="1100" fill="#f5f5f5"/>
+
+  <!-- title strip -->
+  <text x="400" y="30" font-size="14" fill="#666" text-anchor="middle">LANDING PAGE WIREFRAME — Lesson 3 build target</text>
+  <text x="400" y="48" font-size="11" fill="#999" text-anchor="middle">grey blocks = where things go. don't worry about exact colours, just get the layout.</text>
+
+  <!-- ========== NAV BAR ========== -->
+  <g>
+    <text x="40" y="78" font-size="11" fill="#666">[ FLEXBOX NAV ]</text>
+    <rect x="40" y="84" width="720" height="56" fill="#ffffff" stroke="#333" stroke-width="2"/>
+
+    <rect x="58" y="100" width="100" height="24" fill="none" stroke="#666" stroke-dasharray="4,3"/>
+    <text x="108" y="117" font-size="11" fill="#666" text-anchor="middle">Brand</text>
+
+    <rect x="372" y="102" width="58" height="20" fill="#222"/>
+    <text x="401" y="116" font-size="11" fill="#fff" text-anchor="middle">Home</text>
+
+    <rect x="438" y="102" width="58" height="20" fill="none" stroke="#666"/>
+    <text x="467" y="116" font-size="11" fill="#444" text-anchor="middle">About</text>
+
+    <rect x="504" y="102" width="64" height="20" fill="none" stroke="#666"/>
+    <text x="536" y="116" font-size="11" fill="#444" text-anchor="middle">Gallery</text>
+
+    <rect x="576" y="102" width="50" height="20" fill="none" stroke="#666"/>
+    <text x="601" y="116" font-size="11" fill="#444" text-anchor="middle">Blog</text>
+
+    <rect x="634" y="102" width="68" height="20" fill="none" stroke="#666"/>
+    <text x="668" y="116" font-size="11" fill="#444" text-anchor="middle">Contact</text>
+
+    <text x="40" y="158" font-size="10" fill="#999">↑ Home is highlighted because we ARE on the home page</text>
+  </g>
+
+  <!-- ========== HERO ========== -->
+  <g>
+    <text x="40" y="186" font-size="11" fill="#666">[ HERO SECTION ]</text>
+    <rect x="40" y="192" width="720" height="220" fill="#e8e8e8" stroke="#999" stroke-dasharray="6,4"/>
+
+    <rect x="200" y="232" width="400" height="44" fill="#333"/>
+    <text x="400" y="260" font-size="16" fill="#fff" text-anchor="middle">Big Headline Goes Here</text>
+
+    <rect x="220" y="290" width="360" height="20" fill="#aaa"/>
+    <text x="400" y="304" font-size="11" fill="#fff" text-anchor="middle">Short tagline / one-line description</text>
+
+    <rect x="220" y="318" width="360" height="20" fill="#aaa"/>
+    <text x="400" y="332" font-size="11" fill="#fff" text-anchor="middle">that wraps onto two lines if needed</text>
+
+    <rect x="340" y="356" width="120" height="36" fill="#222"/>
+    <text x="400" y="378" font-size="12" fill="#fff" text-anchor="middle">Call to Action</text>
+  </g>
+
+  <!-- ========== THREE CONTENT CARDS ========== -->
+  <g>
+    <text x="40" y="450" font-size="11" fill="#666">[ THREE CARDS — also flexbox! ]</text>
+
+    <rect x="40" y="465" width="230" height="200" fill="#ffffff" stroke="#666" stroke-width="1.5"/>
+    <rect x="60" y="485" width="190" height="80" fill="#ddd"/>
+    <text x="155" y="528" font-size="11" fill="#777" text-anchor="middle">image area</text>
+    <rect x="60" y="585" width="160" height="14" fill="#333"/>
+    <rect x="60" y="608" width="190" height="10" fill="#bbb"/>
+    <rect x="60" y="624" width="190" height="10" fill="#bbb"/>
+    <rect x="60" y="640" width="120" height="10" fill="#bbb"/>
+
+    <rect x="285" y="465" width="230" height="200" fill="#ffffff" stroke="#666" stroke-width="1.5"/>
+    <rect x="305" y="485" width="190" height="80" fill="#ddd"/>
+    <text x="400" y="528" font-size="11" fill="#777" text-anchor="middle">image area</text>
+    <rect x="305" y="585" width="160" height="14" fill="#333"/>
+    <rect x="305" y="608" width="190" height="10" fill="#bbb"/>
+    <rect x="305" y="624" width="190" height="10" fill="#bbb"/>
+    <rect x="305" y="640" width="120" height="10" fill="#bbb"/>
+
+    <rect x="530" y="465" width="230" height="200" fill="#ffffff" stroke="#666" stroke-width="1.5"/>
+    <rect x="550" y="485" width="190" height="80" fill="#ddd"/>
+    <text x="645" y="528" font-size="11" fill="#777" text-anchor="middle">image area</text>
+    <rect x="550" y="585" width="160" height="14" fill="#333"/>
+    <rect x="550" y="608" width="190" height="10" fill="#bbb"/>
+    <rect x="550" y="624" width="190" height="10" fill="#bbb"/>
+    <rect x="550" y="640" width="120" height="10" fill="#bbb"/>
+  </g>
+
+  <!-- ========== ABOUT-PREVIEW SECTION ========== -->
+  <g>
+    <text x="40" y="708" font-size="11" fill="#666">[ ABOUT PREVIEW + LINK TO ABOUT.HTML ]</text>
+    <rect x="40" y="715" width="720" height="180" fill="#ffffff" stroke="#999" stroke-dasharray="6,4"/>
+
+    <rect x="60" y="740" width="200" height="20" fill="#333"/>
+    <text x="160" y="754" font-size="12" fill="#fff" text-anchor="middle">A bit about us</text>
+
+    <rect x="60" y="772" width="640" height="10" fill="#bbb"/>
+    <rect x="60" y="788" width="640" height="10" fill="#bbb"/>
+    <rect x="60" y="804" width="500" height="10" fill="#bbb"/>
+
+    <rect x="60" y="840" width="180" height="32" fill="none" stroke="#222" stroke-width="2"/>
+    <text x="150" y="860" font-size="11" fill="#222" text-anchor="middle">→ Read more (about.html)</text>
+  </g>
+
+  <!-- ========== FOOTER ========== -->
+  <g>
+    <text x="40" y="938" font-size="11" fill="#666">[ FOOTER ]</text>
+    <rect x="40" y="945" width="720" height="100" fill="#222"/>
+
+    <rect x="60" y="975" width="180" height="10" fill="#666"/>
+    <rect x="60" y="993" width="240" height="10" fill="#555"/>
+
+    <rect x="540" y="975" width="80" height="14" fill="#444"/>
+    <text x="580" y="986" font-size="10" fill="#ccc" text-anchor="middle">Gallery</text>
+    <rect x="630" y="975" width="80" height="14" fill="#444"/>
+    <text x="670" y="986" font-size="10" fill="#ccc" text-anchor="middle">About</text>
+  </g>
+
+</svg>

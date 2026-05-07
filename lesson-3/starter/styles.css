@@ -1,0 +1,57 @@
+/* ============================================================
+   STARTER STYLES
+   The basics are already done. Your job is to add the nav styles
+   and bring the rest of the page to life.
+   ============================================================ */
+
+
+/* --- resets --- */
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  color: #222;
+  background: #fafafa;
+  line-height: 1.5;
+}
+img { max-width: 100%; display: block; }
+a { color: #2a6df4; }
+
+
+/* ============================================================
+   NAV — add your flexbox styles below.
+   You'll need:
+     - .main-nav   (the <nav>)        → display: flex;  ...
+     - .nav-links  (the link wrapper) → display: flex;  ...
+   ============================================================ */
+
+.main-nav {
+  /* TODO */
+}
+
+.nav-links {
+  /* TODO */
+}
+
+
+/* ============================================================
+   HERO, CARDS, ABOUT, FOOTER
+   Add styles for these sections as you build them.
+   ============================================================ */
+
+.hero { /* TODO */ }
+
+.cards { /* TODO — also flexbox! */ }
+.card  { /* TODO */ }
+
+.about-preview { /* TODO */ }
+
+.site-footer { /* TODO */ }
+
+
+/* --- about & gallery page basics so they're not totally bare --- */
+.page {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 0 24px;
+}
