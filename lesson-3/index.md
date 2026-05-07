@@ -8,9 +8,9 @@ Today you'll build a multi-page website with a flexbox navigation bar. The funda
 
 ## What you're given
 
-- [starter/index.html](starter/index.html) — your landing page. Has placeholder comments where things go. You'll fill it in.
-- [starter/about.html](starter/about.html) and [starter/gallery.html](starter/gallery.html) — already built. The nav is in place. You just need to make sure the links to/from them work.
-- [starter/styles.css](starter/styles.css) — has the basics. You'll add the nav and section styles.
+- [starter/index.html](https://github.com/MrBev02/CT_Web_Software/blob/main/lesson-3/starter/index.html) — your landing page. Has placeholder comments where things go. You'll fill it in.
+- [starter/about.html](https://github.com/MrBev02/CT_Web_Software/blob/main/lesson-3/starter/about.html) and [starter/gallery.html](https://github.com/MrBev02/CT_Web_Software/blob/main/lesson-3/starter/gallery.html) — already built. The nav is in place. You just need to make sure the links to/from them work.
+- [starter/styles.css](https://github.com/MrBev02/CT_Web_Software/blob/main/lesson-3/starter/styles.css) — has the basics. You'll add the nav and section styles.
 - [wireframe.svg](wireframe.svg) — what you're aiming to build.
 - [demo/flexbox-playground.html](demo/flexbox-playground.html) — your sandbox. Use it whenever you're not sure what a flexbox property does.
 - [reference/flexbox.md](reference/flexbox.md) — the cheat sheet. Read it when you get stuck.
