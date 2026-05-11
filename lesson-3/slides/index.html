@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Flexbox Structure — Lesson 3 Slides</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #fafafa;
+    --ink: #1c1c20;
+    --muted: #6a6a72;
+    --accent: #2a6df4;
+    --container-color: #f4a72a;
+    --item-color: #2aa84a;
+    --code-bg: #1c1c20;
+    --code-ink: #e8e8e8;
+  }
+
+  html, body {
+    height: 100%;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    overflow: hidden;
+  }
+
+  /* The stage holds all slides; only one is visible at a time. */
+  .stage {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    transition: width 0.25s ease;
+  }
+  body.notes-open .stage { width: 65vw; }
+
+  .slide {
+    position: absolute;
+    inset: 0;
+    padding: 5vh 6vw 10vh 6vw;
+    display: none;
+    flex-direction: column;
+    overflow: auto;
+  }
+  .slide.active { display: flex; }
+
+  /* Type scale — tuned for back-of-room legibility on a projector */
+  h1 { font-size: 5.5vw; font-weight: 800; letter-spacing: -0.02em; line-height: 1.05; margin-bottom: 0.3em; }
+  h2 { font-size: 3.2vw; font-weight: 700; margin-bottom: 0.4em; line-height: 1.1; }
+  h3 { font-size: 1.8vw; font-weight: 700; margin-bottom: 0.5em; }
+  p, li { font-size: 1.6vw; line-height: 1.45; }
+  .lede { font-size: 2vw; color: var(--muted); margin-bottom: 1.5em; }
+
+  body.notes-open h1 { font-size: 4.5vw; }
+  body.notes-open h2 { font-size: 2.6vw; }
+  body.notes-open p, body.notes-open li { font-size: 1.3vw; }
+
+  /* ============================================================
+     TITLE SLIDE
+     ============================================================ */
+  .title-slide { justify-content: center; align-items: flex-start; }
+  .title-slide .eyebrow {
+    font-size: 1.2vw;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: 1em;
+  }
+  .title-slide .hint {
+    margin-top: 3em;
+    color: var(--muted);
+    font-size: 1.2vw;
+  }
+  kbd {
+    background: white;
+    border: 1px solid #ccc;
+    border-bottom-width: 2px;
+    border-radius: 4px;
+    padding: 2px 8px;
+    font-family: ui-monospace, Menlo, Consolas, monospace;
+    font-size: 0.9em;
+  }
+
+  /* ============================================================
+     CONTAINER/ITEMS VISUAL (slide 3)
+     ============================================================ */
+  .visual {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 1em 0 2em 0;
+    gap: 1.5em;
+  }
+
+  .demo-wrap {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+  .demo-label {
+    font-family: ui-monospace, Menlo, Consolas, monospace;
+    font-weight: 700;
+    font-size: 1.1vw;
+    white-space: nowrap;
+  }
+  .demo-label.c { color: var(--container-color); }
+  .demo-label.i { color: var(--item-color); }
+  .demo-container {
+    display: flex;
+    gap: 20px;
+    padding: 30px;
+    border: 3px solid var(--container-color);
+    border-radius: 10px;
+    background: rgba(244, 167, 42, 0.06);
+    min-height: 140px;
+    align-items: center;
+    justify-content: center;
+  }
+  .demo-item {
+    background: var(--item-color);
+    color: white;
+    padding: 18px 28px;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 1.3vw;
+  }
+
+  /* ============================================================
+     TREE DIAGRAM
+     ============================================================ */
+  .tree {
+    font-family: ui-monospace, Menlo, Consolas, monospace;
+    font-size: 1.5vw;
+    line-height: 1.7;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 1.5em 2em;
+    white-space: pre;
+    display: inline-block;
+  }
+  body.notes-open .tree { font-size: 1.1vw; }
+
+  .tree .container-tag { color: var(--container-color); font-weight: 700; }
+  .tree .item-tag { color: var(--item-color); }
+  .tree .both-tag { color: #d8385e; font-weight: 700; }
+  .tree .note { color: var(--muted); font-style: italic; }
+  .tree .match {
+    background: rgba(244, 167, 42, 0.25);
+    padding: 0 6px;
+    border-radius: 3px;
+    border-left: 3px solid var(--container-color);
+    display: inline-block;
+    margin-left: -3px;
+  }
+  .tree .match.alt {
+    background: rgba(216, 56, 94, 0.18);
+    border-left-color: #d8385e;
+  }
+
+  .tree-row {
+    display: flex;
+    gap: 2em;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 1em;
+  }
+  .tree-row .tree { font-size: 1.1vw; }
+  body.notes-open .tree-row .tree { font-size: 0.85vw; }
+
+  .tree-label {
+    text-align: center;
+    font-size: 1.2vw;
+    font-weight: 700;
+    margin-bottom: 0.5em;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* ============================================================
+     CODE BLOCKS
+     ============================================================ */
+  .code {
+    background: var(--code-bg);
+    color: var(--code-ink);
+    padding: 1.2em 1.5em;
+    border-radius: 8px;
+    font-family: ui-monospace, Menlo, Consolas, monospace;
+    font-size: 1.3vw;
+    line-height: 1.6;
+    white-space: pre;
+    overflow-x: auto;
+  }
+  body.notes-open .code { font-size: 1vw; }
+  .code .sel  { color: #f4a72a; }
+  .code .prop { color: #6db4e8; }
+  .code .val  { color: #ffd96b; }
+  .code .tag  { color: #f08080; }
+  .code .attr { color: #6db4e8; }
+  .code .attr-val { color: #c8c8c8; }
+  .code .class-link { color: #f4a72a; font-weight: 700; }  /* matches selector colour */
+  .code .punct { color: #888; }
+  .code .comment { color: #6a8a6a; font-style: italic; }
+  .code .highlight { background: rgba(244, 167, 42, 0.2); display: inline-block; padding: 0 4px; border-radius: 3px; }
+
+  /* HTML + CSS side-by-side */
+  .code-pair {
+    display: flex;
+    gap: 1.5em;
+    margin-top: 1em;
+  }
+  .code-panel { flex: 1; display: flex; flex-direction: column; gap: 0.4em; min-width: 0; }
+  .code-panel .panel-label {
+    font-family: ui-monospace, Menlo, Consolas, monospace;
+    font-size: 1vw;
+    font-weight: 700;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  .code-panel .code { font-size: 1.1vw; }
+  body.notes-open .code-panel .code { font-size: 0.85vw; }
+  .code-link-caption {
+    margin-top: 1.2em;
+    text-align: center;
+    font-size: 1.2vw;
+    color: var(--muted);
+  }
+  .code-link-caption .class-link {
+    color: var(--container-color);
+    font-weight: 700;
+    font-family: ui-monospace, Menlo, Consolas, monospace;
+  }
+  body.notes-open .code-link-caption { font-size: 1vw; }
+
+  /* ============================================================
+     COMPARE LAYOUT (wrong vs right)
+     ============================================================ */
+  .compare {
+    display: flex;
+    gap: 2em;
+    flex: 1;
+    align-items: stretch;
+  }
+  .compare-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8em;
+  }
+  .compare-label {
+    font-size: 1.5vw;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.4em 0.8em;
+    border-radius: 6px;
+    align-self: flex-start;
+  }
+  .compare-label.wrong { background: #ffe5e5; color: #c00; }
+  .compare-label.right { background: #e5f4e5; color: #060; }
+  .compare-col .code { font-size: 1.1vw; }
+  body.notes-open .compare-col .code { font-size: 0.85vw; }
+  .compare-note {
+    font-size: 1.2vw;
+    color: var(--muted);
+    font-style: italic;
+  }
+  body.notes-open .compare-note { font-size: 0.95vw; }
+
+  /* ============================================================
+     SYLLABUS SLIDE
+     ============================================================ */
+  .syllabus ul {
+    list-style: none;
+    margin-top: 1em;
+  }
+  .syllabus li {
+    padding: 0.8em 0 0.8em 2.5em;
+    position: relative;
+    border-bottom: 1px solid #e8e8e8;
+  }
+  .syllabus li::before {
+    content: "▸";
+    position: absolute;
+    left: 0.5em;
+    top: 0.8em;
+    color: var(--accent);
+  }
+  .syllabus .outcomes {
+    margin-top: 1.5em;
+    padding: 1em 1.4em;
+    background: #f0f4ff;
+    border-left: 4px solid var(--accent);
+    border-radius: 4px;
+  }
+  .syllabus .outcomes .code-tag {
+    display: inline-block;
+    background: var(--accent);
+    color: white;
+    padding: 2px 10px;
+    border-radius: 4px;
+    font-family: ui-monospace, Menlo, Consolas, monospace;
+    font-size: 1.1vw;
+    margin-right: 0.5em;
+    font-weight: 700;
+  }
+  body.notes-open .syllabus .outcomes .code-tag { font-size: 0.95vw; }
+
+  /* ============================================================
+     LEGEND (used on tree slides)
+     ============================================================ */
+  .legend {
+    display: flex;
+    gap: 1.8em;
+    margin-bottom: 1em;
+    font-family: ui-monospace, Menlo, Consolas, monospace;
+    font-size: 1.1vw;
+    flex-wrap: wrap;
+  }
+  body.notes-open .legend { font-size: 0.95vw; }
+  .legend-item { display: flex; align-items: center; gap: 0.5em; }
+  .legend-swatch {
+    width: 1em; height: 1em; border-radius: 3px;
+  }
+
+  /* ============================================================
+     NAV CONTROLS
+     ============================================================ */
+  .controls {
+    position: fixed;
+    bottom: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    background: rgba(28, 28, 32, 0.85);
+    padding: 8px 12px;
+    border-radius: 30px;
+    backdrop-filter: blur(8px);
+    z-index: 100;
+  }
+  body.notes-open .controls { left: 32.5vw; }
+  .controls button {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 18px;
+    padding: 6px 14px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 600;
+  }
+  .controls button:hover { background: rgba(255, 255, 255, 0.15); }
+  .counter {
+    color: white;
+    padding: 6px 10px;
+    font-family: ui-monospace, Menlo, Consolas, monospace;
+    font-size: 14px;
+  }
+
+  /* ============================================================
+     NOTES PANEL
+     ============================================================ */
+  .notes-panel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 35vw;
+    height: 100vh;
+    background: white;
+    border-left: 1px solid #ddd;
+    padding: 4vh 2vw;
+    overflow-y: auto;
+    transform: translateX(100%);
+    transition: transform 0.25s ease;
+    z-index: 50;
+    box-shadow: -4px 0 20px rgba(0,0,0,0.05);
+  }
+  body.notes-open .notes-panel { transform: translateX(0); }
+  .notes-panel h4 {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    margin-bottom: 0.6em;
+  }
+  .notes-panel h3 {
+    font-size: 1.3rem;
+    margin-bottom: 0.8em;
+    color: var(--ink);
+  }
+  .notes-panel .note-body {
+    font-size: 1rem;
+    line-height: 1.55;
+    color: #2a2a2a;
+  }
+  .notes-panel .note-body p { font-size: 1rem; margin-bottom: 0.8em; }
+  .notes-panel .note-body ul { margin: 0.5em 0 0.8em 1.2em; }
+  .notes-panel .note-body li { font-size: 1rem; margin-bottom: 0.3em; }
+  .notes-panel .note-body strong { color: var(--ink); }
+
+  .notes-content { display: none; }
+
+  /* Hide notes within slides themselves */
+  .slide aside.notes { display: none; }
+</style>
+</head>
+<body>
+
+<div class="stage">
+
+  <!-- ========== SLIDE 1: TITLE ========== -->
+  <section class="slide title-slide active" data-slide="1">
+    <div class="eyebrow">Year 10 Computing · Lesson 3</div>
+    <h1>Flexbox.</h1>
+    <h2>Containers and items.</h2>
+    <p class="hint">
+      <kbd>→</kbd> next slide &nbsp; · &nbsp;
+      <kbd>←</kbd> previous &nbsp; · &nbsp;
+      <kbd>N</kbd> toggle notes &nbsp; · &nbsp;
+      <kbd>F</kbd> fullscreen
+    </p>
+    <aside class="notes">
+      <strong>Set-up.</strong> Don't open this slide until everyone's seated. Last lesson didn't go to plan — most students got stuck on the same structural issue. This deck is the recap that fixes it.
+      <ul>
+        <li>Hold this slide for about 30 seconds while you frame the lesson.</li>
+        <li>Suggested framing: "Last lesson the biggest thing that tripped you up wasn't a property — it was knowing WHICH element to put `display: flex` on. That's the whole game with flexbox. Today we're going to nail that pattern."</li>
+        <li>Don't apologise for the previous lesson — frame it as "now we go back and lock this in."</li>
+      </ul>
+    </aside>
+  </section>
+
+  <!-- ========== SLIDE 2: SYLLABUS DOT POINTS ========== -->
+  <section class="slide syllabus" data-slide="2">
+    <h2>Syllabus dot points covered</h2>
+    <p class="lede">Software development — Developing apps and web software</p>
+    <ul>
+      <li>Develop the user interface (UI) and user experience (UX) of an app, including using event-driven programming to respond to user input</li>
+      <li>Produce and implement an app using the preferred design in a general-purpose or object-oriented programming language</li>
+      <li>Plan and manage a project using an iterative approach</li>
+    </ul>
+    <div class="outcomes">
+      <p>
+        <span class="code-tag">CT5-OPL-01</span>
+        <span class="code-tag">CT5-DES-01</span>
+        <span class="code-tag">CT5-DPM-01</span>
+      </p>
+    </div>
+    <aside class="notes">
+      <strong>Skip lightly.</strong> This slide is for the record (and any observer). 30 seconds at most.
+      <ul>
+        <li>OPL-01: designs, produces and evaluates algorithms and implements them in a general-purpose programming language</li>
+        <li>DES-01: designs and creates user interfaces and the user experience</li>
+        <li>DPM-01: applies iterative processes to define problems and plan, design, develop and evaluate computing solutions</li>
+      </ul>
+    </aside>
+  </section>
+
+  <!-- ========== SLIDE 3: THE RULE ========== -->
+  <section class="slide" data-slide="3">
+    <h2>The rule.</h2>
+    <p class="lede">A flex layout has two parts: <strong>one container</strong> and the <strong>items inside it</strong>.</p>
+
+    <div class="visual">
+      <div class="demo-wrap">
+        <span class="demo-label c">container  ← display: flex goes HERE</span>
+        <div class="demo-container">
+          <div class="demo-item">1</div>
+          <div class="demo-item">2</div>
+          <div class="demo-item">3</div>
+        </div>
+        <span class="demo-label i">↑ items</span>
+      </div>
+    </div>
+
+    <div class="code-pair">
+      <div class="code-panel">
+        <div class="panel-label">HTML</div>
+<div class="code">
+<span class="punct">&lt;</span><span class="tag">div</span> <span class="attr">class</span><span class="punct">=</span><span class="attr-val">"</span><span class="class-link">container</span><span class="attr-val">"</span><span class="punct">&gt;</span>
+  <span class="punct">&lt;</span><span class="tag">div</span> <span class="attr">class</span><span class="punct">=</span><span class="attr-val">"item"</span><span class="punct">&gt;</span>1<span class="punct">&lt;/</span><span class="tag">div</span><span class="punct">&gt;</span>
+  <span class="punct">&lt;</span><span class="tag">div</span> <span class="attr">class</span><span class="punct">=</span><span class="attr-val">"item"</span><span class="punct">&gt;</span>2<span class="punct">&lt;/</span><span class="tag">div</span><span class="punct">&gt;</span>
+  <span class="punct">&lt;</span><span class="tag">div</span> <span class="attr">class</span><span class="punct">=</span><span class="attr-val">"item"</span><span class="punct">&gt;</span>3<span class="punct">&lt;/</span><span class="tag">div</span><span class="punct">&gt;</span>
+<span class="punct">&lt;/</span><span class="tag">div</span><span class="punct">&gt;</span></div>
+      </div>
+
+      <div class="code-panel">
+        <div class="panel-label">CSS</div>
+<div class="code">
+<span class="sel">.container</span> <span class="punct">{</span>
+  <span class="highlight"><span class="prop">display</span><span class="punct">:</span> <span class="val">flex</span><span class="punct">;</span></span>
+  <span class="highlight"><span class="prop">justify-content</span><span class="punct">:</span> <span class="val">space-between</span><span class="punct">;</span></span>
+  <span class="highlight"><span class="prop">align-items</span><span class="punct">:</span> <span class="val">center</span><span class="punct">;</span></span>
+  <span class="highlight"><span class="prop">gap</span><span class="punct">:</span> <span class="val">16px</span><span class="punct">;</span></span>
+<span class="punct">}</span></div>
+      </div>
+    </div>
+
+    <p class="code-link-caption">
+      The <span class="class-link">class="container"</span> in the HTML is what the <span class="class-link">.container</span> rule in the CSS targets. <strong>The class name is the bridge.</strong>
+    </p>
+
+    <aside class="notes">
+      <strong>This is the whole lesson in one slide.</strong>
+      <ul>
+        <li>Walk to the screen. Point at the orange box. Say: "This is the container. It's the parent element in the HTML — look at the <code>&lt;div class='container'&gt;</code> on the left."</li>
+        <li>Point at the green boxes. "These are the items. They're the children inside the container — the three <code>&lt;div class='item'&gt;</code> tags."</li>
+        <li>Point at the CSS. "The four properties are on the <code>.container</code> rule. They go on the container's CSS, not on the items. Notice there's no CSS for <code>.item</code> at all — the items don't need it. Their layout is decided by the container they live in."</li>
+        <li><strong>The class-name bridge:</strong> trace your finger from <code>class="container"</code> in HTML to <code>.container</code> in CSS. "These have to match. If you rename one and forget the other, the styling breaks." This is worth labouring — class-name typos will be a frequent bug.</li>
+        <li><strong>Comprehension check:</strong> "If I want to add a fourth item, what do I change?" (Answer: add another <code>&lt;div class='item'&gt;</code> in the HTML. Don't touch the CSS.) "And if I want them vertical instead of horizontal?" (Answer: add <code>flex-direction: column</code> to the <code>.container</code> rule.)</li>
+        <li>Don't move on until this lands. Pause. Look around. Anyone confused — fix it now.</li>
+      </ul>
+    </aside>
+  </section>
+
+  <!-- ========== SLIDE 4: ITEMS CAN ALSO BE CONTAINERS ========== -->
+  <section class="slide" data-slide="4">
+    <h2>An item can also be a container.</h2>
+    <p class="lede">This is the bit that tripped us up. <strong>The links wrapper is an item of the nav, AND it's a container holding its own items.</strong></p>
+
+    <div class="legend">
+      <div class="legend-item"><span class="legend-swatch" style="background: var(--container-color)"></span> container</div>
+      <div class="legend-item"><span class="legend-swatch" style="background: var(--item-color)"></span> item</div>
+      <div class="legend-item"><span class="legend-swatch" style="background: #d8385e"></span> item AND container</div>
+    </div>
+
+<div class="tree" style="align-self: flex-start;">
+<span class="container-tag">nav.main-nav</span>                 <span class="note">← container</span>
+  <span class="item-tag">├── a.brand</span>              <span class="note">← item</span>
+  <span class="both-tag">└── div.nav-links</span>         <span class="note">← item AND container</span>
+        <span class="item-tag">├── a (Home)</span>        <span class="note">← items inside</span>
+        <span class="item-tag">├── a (About)</span>       <span class="note">  the nav-links</span>
+        <span class="item-tag">├── a (Gallery)</span>     <span class="note">  container</span>
+        <span class="item-tag">├── a (Blog)</span>
+        <span class="item-tag">└── a (Contact)</span>
+</div>
+
+    <aside class="notes">
+      <strong>The big reveal of the lesson.</strong>
+      <ul>
+        <li>Slow down on this slide. This is the concept that didn't land last time.</li>
+        <li>Trace through the tree out loud: "The nav is a container. Inside it are TWO items — the brand on the left, and the links wrapper on the right. We need that wrapper so flexbox can push it to the end of the row."</li>
+        <li>Then: "But the links wrapper ITSELF is a flex container. Inside it are five link items. So we end up with two layers of flexbox: outer nav (`space-between` puts brand left, wrapper right), inner wrapper (arranges the five links in a row with gaps)."</li>
+        <li><strong>Most common student mistake from last lesson:</strong> they put all 5 links and the brand directly inside `&lt;nav&gt;`, no wrapper. The nav becomes a container with 6 items, all spread evenly across the row. The brand floats in the middle, not on the left. That's the bug.</li>
+        <li><strong>Comprehension check:</strong> "Why do we need the `&lt;div class='nav-links'&gt;` wrapper at all? Why not just put the links straight inside the nav?" (Looking for: because we want flexbox to treat the 5 links as ONE group, so the nav has just 2 items — brand and group — and `space-between` works.)</li>
+      </ul>
+    </aside>
+  </section>
+
+  <!-- ========== SLIDE 5: SAME PATTERN, THREE SECTIONS ========== -->
+  <section class="slide" data-slide="5">
+    <h2>Same pattern. Three sections.</h2>
+    <p class="lede">Build it once, you can build it everywhere. Today's job: do this same pattern for the cards and the footer.</p>
+
+    <div class="tree-row">
+      <div>
+        <div class="tree-label">NAV (done)</div>
+<div class="tree">
+<span class="container-tag">nav.main-nav</span>
+  <span class="item-tag">├── a.brand</span>
+  <span class="both-tag">└── div.nav-links</span>
+        <span class="item-tag">├── a</span>
+        <span class="item-tag">├── a</span>
+        <span class="item-tag">└── ...</span>
+</div>
+      </div>
+
+      <div>
+        <div class="tree-label">CARDS (today)</div>
+<div class="tree">
+<span class="container-tag">section.cards</span>
+  <span class="item-tag">├── article.card</span>
+  <span class="item-tag">├── article.card</span>
+  <span class="item-tag">└── article.card</span>
+
+
+
+
+</div>
+      </div>
+
+      <div>
+        <div class="tree-label">FOOTER (today)</div>
+<div class="tree">
+<span class="container-tag">footer.site-footer</span>
+  <span class="item-tag">├── p (copyright)</span>
+  <span class="both-tag">└── div.footer-links</span>
+        <span class="item-tag">├── a</span>
+        <span class="item-tag">└── a</span>
+
+</div>
+      </div>
+    </div>
+
+    <p style="margin-top: 1.5em; font-size: 1.3vw; color: var(--muted); font-style: italic;">
+      Notice: the nav and footer have the same shape. One element on the left, a wrapper holding items on the right.
+    </p>
+
+    <aside class="notes">
+      <strong>The "ah-ha" slide.</strong>
+      <ul>
+        <li>Let them look at all three trees for a moment before you talk.</li>
+        <li>Then point out: nav and footer have <em>identical</em> shape. The cards section is simpler — just a container with three items, no nested wrapper needed.</li>
+        <li>Say: "You've already built the hardest one — the nav. The cards section is actually simpler. The footer is the nav pattern again."</li>
+        <li><strong>Comprehension check:</strong> "Looking at the cards tree — where does `display: flex` go?" (On `.cards`.) "And what do I need on each `.card` to make them share space equally?" (`flex: 1`.)</li>
+        <li>This is where motivation lives. The work ahead is repetition of something they've already done. Tell them that.</li>
+      </ul>
+    </aside>
+  </section>
+
+  <!-- ========== SLIDE 6: CSS SELECTOR REMINDER ========== -->
+  <section class="slide" data-slide="6">
+    <h2>A quick CSS reminder.</h2>
+    <p class="lede">Before the next slide, you need to know what "<code>.main-nav a</code>" means versus "<code>.main-nav</code>". <strong>The space matters.</strong></p>
+
+    <div class="tree-row" style="margin-top: 1.5em;">
+      <div>
+        <div class="tree-label" style="color: var(--container-color); text-transform: none; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 1.6vw;">.main-nav</div>
+<div class="tree">
+<span class="match"><span class="container-tag">nav.main-nav</span></span>     <span class="note">← THIS ONE</span>
+  <span class="item-tag">├── a.brand</span>
+  <span class="both-tag">└── div.nav-links</span>
+        <span class="item-tag">├── a</span>
+        <span class="item-tag">├── a</span>
+        <span class="item-tag">└── ...</span>
+</div>
+        <p style="text-align: center; font-size: 1.2vw; color: var(--muted); margin-top: 0.8em; max-width: 22em;">
+          Targets the <strong>nav element itself.</strong> One thing.
+        </p>
+      </div>
+
+      <div>
+        <div class="tree-label" style="color: #d8385e; text-transform: none; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 1.6vw;">.main-nav a</div>
+<div class="tree">
+<span class="container-tag">nav.main-nav</span>
+  <span class="match alt"><span class="item-tag">├── a.brand</span></span>        <span class="note">← all of</span>
+  <span class="both-tag">└── div.nav-links</span>      <span class="note">  these.</span>
+        <span class="match alt"><span class="item-tag">├── a</span></span>
+        <span class="match alt"><span class="item-tag">├── a</span></span>
+        <span class="match alt"><span class="item-tag">└── ...</span></span>
+</div>
+        <p style="text-align: center; font-size: 1.2vw; color: var(--muted); margin-top: 0.8em; max-width: 22em;">
+          The space means <strong>"inside"</strong>. Targets every <code>&lt;a&gt;</code> that lives inside <code>.main-nav</code>. Six things.
+        </p>
+      </div>
+    </div>
+
+    <p style="margin-top: 1.5em; text-align: center; font-size: 1.4vw; font-weight: 700;">
+      Different selectors target different elements. Pick the wrong one and your CSS lands on the wrong thing.
+    </p>
+
+    <aside class="notes">
+      <strong>The bridge slide to the next comparison.</strong>
+      <ul>
+        <li>You can do this in 60 seconds if the class already gets descendant selectors — but most of yours won't, so slow down.</li>
+        <li>Trace through the left tree: "<code>.main-nav</code> on its own — no space, nothing after it. CSS reads this as 'find the element with class main-nav.' That's the &lt;nav&gt; itself. Just one thing."</li>
+        <li>Now the right tree: "Same start, but a space and then an <code>a</code>. The space is the magic. It means 'find every &lt;a&gt; tag that's INSIDE an element with class main-nav.' That's all six anchors — brand plus five links."</li>
+        <li><strong>Comprehension check:</strong> "If I wrote <code>.main-nav div</code>, what would that target?" (Looking for: the <code>div.nav-links</code> wrapper. It's the only div inside.)</li>
+        <li>Set up the next slide: "On the next slide you'll see both these selectors used to apply <code>display: flex</code>. One works, one doesn't. Now you have the vocabulary to tell why."</li>
+      </ul>
+    </aside>
+  </section>
+
+  <!-- ========== SLIDE 7: WRONG VS RIGHT ========== -->
+  <section class="slide" data-slide="7">
+    <h2>Where the four properties go.</h2>
+    <p class="lede">Same HTML, two different stylesheets. One works, one doesn't. Spot the difference.</p>
+
+    <div class="compare">
+      <div class="compare-col">
+        <span class="compare-label wrong">✗ Wrong</span>
+<div class="code">
+<span class="sel">.main-nav a</span> <span class="punct">{</span>
+  <span class="prop">display</span><span class="punct">:</span> <span class="val">flex</span><span class="punct">;</span>
+  <span class="prop">justify-content</span><span class="punct">:</span> <span class="val">space-between</span><span class="punct">;</span>
+<span class="punct">}</span></div>
+        <p class="compare-note">Flexbox is on each link. But links have nothing inside them to lay out. Nothing changes. The nav stays vertical.</p>
+      </div>
+
+      <div class="compare-col">
+        <span class="compare-label right">✓ Right</span>
+<div class="code">
+<span class="sel">.main-nav</span> <span class="punct">{</span>
+  <span class="prop">display</span><span class="punct">:</span> <span class="val">flex</span><span class="punct">;</span>
+  <span class="prop">justify-content</span><span class="punct">:</span> <span class="val">space-between</span><span class="punct">;</span>
+<span class="punct">}</span></div>
+        <p class="compare-note">Flexbox is on the nav, which contains the items. The nav arranges its children. Layout works.</p>
+      </div>
+    </div>
+
+    <p style="margin-top: 2em; font-size: 1.6vw; font-weight: 700; text-align: center;">
+      The flex container is the <em>parent</em>. Always.
+    </p>
+
+    <aside class="notes">
+      <strong>Lock-in slide.</strong>
+      <ul>
+        <li>This is the one to leave on the screen during independent work. Students who get stuck can glance up and check.</li>
+        <li>If anyone wrote the wrong version last lesson, they'll recognise it. That's the point.</li>
+        <li>Say: "When you write `display: flex`, the very next thing you should ask yourself is: what is this element the parent of? Those children are what's going to be laid out. If the answer is 'nothing,' you've put it on the wrong element."</li>
+        <li><strong>Transition to independent work:</strong> "Open your starter — the new version with the structure trees in the comments. Build the cards section first. The pattern is on slide 5."</li>
+      </ul>
+    </aside>
+  </section>
+
+</div>
+
+<!-- ============================================================
+     NAV CONTROLS
+     ============================================================ -->
+<div class="controls">
+  <button id="prev" aria-label="Previous slide">←</button>
+  <span class="counter" id="counter">1 / 6</span>
+  <button id="next" aria-label="Next slide">→</button>
+  <button id="notes-btn" aria-label="Toggle notes">N</button>
+  <button id="fs-btn" aria-label="Fullscreen">⛶</button>
+</div>
+
+<!-- ============================================================
+     NOTES PANEL
+     ============================================================ -->
+<aside class="notes-panel" id="notes-panel">
+  <h4>Speaker notes</h4>
+  <h3 id="notes-title">Slide 1</h3>
+  <div class="note-body" id="notes-body"></div>
+</aside>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const total  = slides.length;
+  const counter = document.getElementById('counter');
+  const notesTitle = document.getElementById('notes-title');
+  const notesBody  = document.getElementById('notes-body');
+  let current = 1;
+
+  function showSlide(n) {
+    if (n < 1) n = 1;
+    if (n > total) n = total;
+    current = n;
+    slides.forEach((s, i) => s.classList.toggle('active', i + 1 === current));
+    counter.textContent = current + ' / ' + total;
+    // Populate notes panel from the active slide's <aside class="notes">
+    const active = slides[current - 1];
+    const noteEl = active.querySelector('aside.notes');
+    notesTitle.textContent = active.querySelector('h1, h2')?.textContent || 'Slide ' + current;
+    notesBody.innerHTML = noteEl ? noteEl.innerHTML : '<em>(no notes)</em>';
+  }
+
+  function toggleNotes() {
+    document.body.classList.toggle('notes-open');
+  }
+
+  function toggleFullscreen() {
+    if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+    else document.exitFullscreen();
+  }
+
+  document.getElementById('prev').addEventListener('click', () => showSlide(current - 1));
+  document.getElementById('next').addEventListener('click', () => showSlide(current + 1));
+  document.getElementById('notes-btn').addEventListener('click', toggleNotes);
+  document.getElementById('fs-btn').addEventListener('click', toggleFullscreen);
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+      e.preventDefault(); showSlide(current + 1);
+    } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+      e.preventDefault(); showSlide(current - 1);
+    } else if (e.key === 'n' || e.key === 'N') {
+      toggleNotes();
+    } else if (e.key === 'f' || e.key === 'F') {
+      toggleFullscreen();
+    } else if (e.key === 'Home') {
+      showSlide(1);
+    } else if (e.key === 'End') {
+      showSlide(total);
+    }
+  });
+
+  // Initial paint
+  showSlide(1);
+</script>
+
+</body>
+</html>

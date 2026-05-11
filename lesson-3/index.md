@@ -6,6 +6,8 @@ title: Lesson 3 — Build Your Landing Page
 
 Today you'll build a multi-page website with a flexbox navigation bar. The fundamentals you learn here give you the skills to direct AI, recognise good code, and ask for what you want.
 
+- [Flexbox slides](slides/index.html)
+
 ## What you're given
 
 - [starter/index.html](https://github.com/MrBev02/CT_Web_Software/blob/main/lesson-3/starter/index.html) — your landing page. Has placeholder comments where things go. You'll fill it in.
