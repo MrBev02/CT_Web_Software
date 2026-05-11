@@ -8,24 +8,55 @@
 <body>
 
   <!-- ============================================================
-       NAV — build this first.
-       Use a <nav> tag with class "main-nav".
-       Inside, add a brand and a group of links wrapped in a div
-       with class "nav-links". The links should go to:
-         index.html  (Home — current page)
-         about.html
-         gallery.html
-         #           (Blog placeholder)
-         #           (Contact placeholder)
-       Then style .main-nav and .nav-links in styles.css using flexbox.
+       NAV — build this in 4 steps.
+
+         Step 1. Open a <nav> tag with class "main-nav".
+
+         Step 2. INSIDE the nav, add ONE brand link:
+                   <a href="index.html" class="brand">Brand</a>
+
+         Step 3. STILL INSIDE the nav, add a wrapper <div> with
+                 class "nav-links". The five page links go INSIDE
+                 this wrapper, NOT directly in the nav.
+
+         Step 4. Add five <a> tags inside the .nav-links div:
+                   index.html   (Home — give this class="active")
+                   about.html
+                   gallery.html
+                   #            (Blog placeholder)
+                   #            (Contact placeholder)
+
+       Your finished structure should look like:
+           nav.main-nav
+             ├── a.brand
+             └── div.nav-links
+                   ├── a (Home)
+                   ├── a (About)
+                   ├── a (Gallery)
+                   ├── a (Blog)
+                   └── a (Contact)
        ============================================================ -->
 
 
 
   <!-- ============================================================
-       HERO — a big heading, a tagline, and a CTA button.
-       Look at the wireframe for what this should roughly look like.
-       Class on the section: "hero"
+       HERO — build this in 3 steps.
+
+         Step 1. The <section class="hero"> is already below.
+                 You don't need to create it. You just fill it in.
+
+         Step 2. INSIDE the hero, add:
+                   - an <h1> with the big headline
+                   - a <p> with the tagline / one-line description
+
+         Step 3. ALSO inside the hero, add a call-to-action link:
+                   <a href="#" class="cta-button">Call to Action</a>
+
+       Your finished structure should look like:
+           section.hero
+             ├── h1
+             ├── p
+             └── a.cta-button
        ============================================================ -->
   <section class="hero">
     <!-- TODO: heading, tagline, CTA button -->
@@ -33,9 +64,30 @@
 
 
   <!-- ============================================================
-       CARDS — three cards in a row.
-       Wrap them in a container with class "cards".
-       Each card: class "card" — image area, heading, short text.
+       CARDS — build this in 3 steps.
+
+       This section uses the SAME pattern as the nav:
+       a container holding items.
+
+         Step 1. The <section class="cards"> is already below.
+                 This is your FLEX CONTAINER. The items go inside.
+
+         Step 2. INSIDE the cards container, add THREE <article>
+                 elements. Each one needs class="card".
+
+         Step 3. INSIDE each card, add:
+                   - <div class="card-image"></div>   (empty for now)
+                   - <h3>Card title</h3>
+                   - <p>Short description</p>
+
+       Your finished structure should look like:
+           section.cards
+             ├── article.card
+             │     ├── div.card-image
+             │     ├── h3
+             │     └── p
+             ├── article.card  (same contents)
+             └── article.card  (same contents)
        ============================================================ -->
   <section class="cards">
     <!-- TODO: three .card elements -->
@@ -43,18 +95,55 @@
 
 
   <!-- ============================================================
-       ABOUT PREVIEW — a short blurb with a link to about.html
+       ABOUT PREVIEW — build this in 3 steps.
+
+         Step 1. The <section class="about-preview"> is already
+                 below.
+
+         Step 2. INSIDE it, add:
+                   - an <h2> heading (e.g. "About us")
+                   - a <p> with a short paragraph
+
+         Step 3. Add a link to the about page:
+                   <a href="about.html">Read more →</a>
+
+       Your finished structure should look like:
+           section.about-preview
+             ├── h2
+             ├── p
+             └── a (link to about.html)
        ============================================================ -->
   <section class="about-preview">
-    <!-- TODO: heading, short paragraph, "Read more" link to about.html -->
+    <!-- TODO: heading, paragraph, link to about.html -->
   </section>
 
 
   <!-- ============================================================
-       FOOTER
+       FOOTER — build this in 3 steps.
+
+       This is ALSO a flex container with items inside — same
+       pattern as the nav and the cards section. (You're getting
+       a lot of practice today.)
+
+         Step 1. The <footer class="site-footer"> is already below.
+                 This is your flex container.
+
+         Step 2. INSIDE the footer, add a <p> for copyright:
+                   <p>© 2026 Your Site</p>
+
+         Step 3. STILL INSIDE the footer, add a wrapper <div>
+                 with class "footer-links" holding two <a> tags
+                 (e.g. About and Gallery).
+
+       Your finished structure should look like:
+           footer.site-footer
+             ├── p (copyright)
+             └── div.footer-links
+                   ├── a (About)
+                   └── a (Gallery)
        ============================================================ -->
   <footer class="site-footer">
-    <!-- TODO: copyright + a couple of links -->
+    <!-- TODO: copyright paragraph + wrapper div with 2 links -->
   </footer>
 
 </body>
